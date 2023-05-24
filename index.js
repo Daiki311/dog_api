@@ -1,22 +1,18 @@
-let myButton = document.getElementById("button"); 
-let dogform = document.getElementById("dogform");
-let dog_img = document.getElementById("dog_img");
-// ボタンを押すと起動
+const myButton = document.getElementById('send-button');
 myButton.addEventListener('click', () => {
-  let form = dogform.ariaValueMax.trim()
+  // 選択した犬の名前の値を読み込む
+  const dogname = document.getElementById("nameselect").value;
+  // breedsの横の部分に選択された名前を入れる
+  const url = 'https://dog.ceo/api/breed/' + dogname + '/images/random';
   // fetchでデータを取得する
-  fetch("https://dog.ceo/api/breeds/image/random")
-  
-  .then(Response => Response.json())
-  .then(data => {
-// 入力したものを読み込む
-//リクエストパラメーターとして走るようにする。
-// レスポンスの中から画像urlの情報を受け取る
-//画像URLの画像をhtmlに埋め込む
-
-    // データの処理
-
-        //エラーが発生した場合
-
-})
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      console.log('data', data);
+      document.getElementById("dog_img").src = data.message;
+    })
+    .catch(error => {
+      console.error('エラー', error);
+    });
 });
+
